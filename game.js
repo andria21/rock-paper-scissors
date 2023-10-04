@@ -68,25 +68,45 @@ function printWinningMovesTable(choices) {
   colWidths.unshift("v PC\\User >".length);
 
   console.log(
+    "\x1b[31m%s\x1b[0m",
+    "-".repeat(colWidths.reduce((sum, width) => sum + width + 3, 0) - 1)
+  );
+
+  console.log(
+    "\x1b[34m%s\x1b[0m",
     tableHeader
       .map((header, index) => header.padEnd(colWidths[index]))
       .join(" | ")
   );
+
   console.log(
+    "\x1b[31m%s\x1b[0m",
     "-".repeat(colWidths.reduce((sum, width) => sum + width + 3, 0) - 1)
   );
 
   for (const row of table) {
     console.log(
-      row.map((cell, index) => cell.padEnd(colWidths[index])).join(" | ")
+      "\x1b[34m%s\x1b[0m",
+      row
+        .map((cell, index) => cell.padEnd(colWidths[index]))
+        .join("\x1b[31m | \x1b[0m")
     );
     console.log(
+      "\x1b[31m%s\x1b[0m",
       "-".repeat(colWidths.reduce((sum, width) => sum + width + 3, 0) - 1)
     );
   }
 }
 
 const args = process.argv.slice(2);
+if (args.length % 2 === 0) {
+  if (args.length === 0) {
+    console.log("Please enter at least 3 names");
+    process.exit(1);
+  }
+  console.log("Even numbers are not accaptable!");
+  process.exit(1);
+}
 const randomKey = randomBytes(256 / 8).toString("hex");
 
 function hasDuplicates(array) {
