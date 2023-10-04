@@ -148,7 +148,7 @@ if (args.length <= 2) {
           playGame(choices, userChoice, randomKey);
         } else {
           console.log(
-            "\n- Invalid choice or option. Please enter a valid choice number or option. -"
+            "\n- Invalid move or option. Please enter a valid move number or option. -"
           );
           getUserChoice();
         }
